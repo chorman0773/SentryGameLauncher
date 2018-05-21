@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="com.google.sites.clibonlineprogram.xmlns.sentry.game" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="com.google.sites.clibonlineprogram.xmlns.sentry.game">
+
+    <xsd:simpleType name="uuid">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:pattern
+    			value="[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}">
+    		</xsd:pattern>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="identifier">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:pattern value="[a-zA-z_][\w_]*"></xsd:pattern>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="identifierQualified">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:pattern value="([a-zA-z_][\w_]*\.)*[a-zA-z_][\w_]*"></xsd:pattern>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="GameInfo">
+    	<xsd:all>
+    		<xsd:element name="GameId" type="identifier"></xsd:element>
+    		<xsd:element name="UUID" type="uuid"></xsd:element>
+    		<xsd:element name="GameName" type="xsd:string"></xsd:element>
+    		<xsd:element name="GameVersion" type="xsd:string"></xsd:element>
+    		<xsd:element name="GameClass" type="identifierQualified"></xsd:element>
+    	</xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="Library">
+    	<xsd:sequence>
+    		<xsd:element name="LibraryLocation" type="xsd:anyURI"></xsd:element>
+    		<xsd:element name="LibraryId" type="identifier"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Libraries">
+    	<xsd:sequence>
+    		<xsd:element name="Library" type="Library" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="InitClass">
+    	<xsd:all>
+    		<xsd:element name="Class" type="identifierQualified"></xsd:element>
+    	</xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="Property">
+    	<xsd:sequence>
+    		<xsd:choice>
+    			<xsd:element name="key" type="identifier"/>
+    			<xsd:element name="sentry-key-root"/>
+    		</xsd:choice>
+    		<xsd:choice>
+    			<xsd:element name="value" type="xsd:string"></xsd:element>
+    			<xsd:element name="tree">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="element" type="Property"
+    							maxOccurs="unbounded" minOccurs="1">
+    						</xsd:element>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    		</xsd:choice>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+
+
+    <xsd:complexType name="LaunchProperties"></xsd:complexType>
+
+
+
+    <xsd:complexType name="empty"></xsd:complexType>
+
+
+</xsd:schema>
